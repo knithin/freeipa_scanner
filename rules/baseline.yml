@@ -1,1 +1,25 @@
+rules:
+  - id: ldap_anonymous_bind_disabled
+    title: LDAP anonymous bind should be disabled
+    severity: High
+    check: ldap.anonymous_bind_allowed == false
+    remediation: "Disable anonymous bind and restrict unauthenticated reads via ACIs."
+
+  - id: pwpolicy_min_length
+    title: Password minimum length >= 12
+    severity: Medium
+    check: jsonrpc.pwpolicy.krbpwdminlength >= 12
+    remediation: "Set krbpwdminlength to at least 12 in global password policy."
+
+  - id: kerberos_preauth_required
+    title: Kerberos preauth required
+    severity: High
+    check: jsonrpc.realm.preauth == true
+    remediation: "Ensure preauthentication is enforced for all principals."
+
+  - id: ldap_tls_enforced
+    title: LDAP TLS enforced
+    severity: High
+    check: ldap.uses_tls == true
+    remediation: "Require StartTLS or LDAPS for all binds and disable cleartext."
 
