@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>FreeIPA Assessment</title>
+<style>
+body { font-family: Arial, sans-serif; font-size: 12px; }
+h1,h2 { color: #333; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+th, td { border: 1px solid #ccc; padding: 6px; text-align: left; }
+.sev-High { background: #ffe5e5; }
+.sev-Medium { background: #fff3cd; }
+.sev-Low { background: #e7f3fe; }
+.pass { color: #2e7d32; }
+.fail { color: #c62828; }
+</style></head>
+<body>
+<h1>FreeIPA Security Assessment</h1>
+<h2>Summary</h2>
+<p>Total checks: {{ summary.total }} | Passed: {{ summary.passed }} | Failed: {{ summary.failed }}</p>
+<h2>Findings</h2>
+<table><thead><tr><th>Severity</th><th>Title</th><th>Status</th><th>Evidence</th><th>Remediation</th></tr></thead>
+<tbody>
+{% for f in findings %}
+<tr class="sev-{{ f.severity }}">
+<td>{{ f.severity }}</td>
+<td>{{ f.title }}</td>
+<td class="{{ 'pass' if f.passed else 'fail' }}">{{ 'Pass' if f.passed else 'Fail' }}</td>
+<td><pre>{{ f.evidence }}</pre></td>
+<td>{{ f.remediation }}</td>
+</tr>
+{% endfor %}
+</tbody></table>
+</body></html>
 
